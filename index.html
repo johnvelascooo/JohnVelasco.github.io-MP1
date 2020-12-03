@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>John Velasco</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/jvicon.jpg" rel="icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
+  <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: MyResume - v2.1.0
+  * Template URL: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-firestore.js"></script>
+
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+       https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-analytics.js"></script>
+
+  <script>
+    //introductions
+    function render_introduction(image, name, intro, quote){
+      var testimonial_item = document.createElement("div");
+      var testimonial_img = document.createElement("img");
+      var testimonial_name = document.createElement("h3");
+      var testimonial_intro = document.createElement("h4");
+      var quote_left = document.createElement("i");
+      var testimonial_quote = document.createElement("p");
+      var quote_right = document.createElement("i");
+      
+      testimonial_item.className = "testimonial-item";
+      testimonial_img.className = "testimonial-img";
+      testimonial_name.className = "testimonial-name";
+      testimonial_intro.className = "testimonial-intro";
+      quote_left.className = "bx bxs-quote-alt-left quote-icon-left";
+      testimonial_quote.className = "testimonial-quote";
+      quote_right.className = "bx bxs-quote-alt-right quote-icon-right";
+
+      testimonial_img.setAttribute("src", image);
+      testimonial_name.innerHTML = name;
+      testimonial_intro.innerHTML = intro;
+      testimonial_quote.innerHTML = quote;
+
+      testimonial_item.appendChild(testimonial_img);
+      testimonial_item.appendChild(testimonial_name);
+      testimonial_item.appendChild(testimonial_intro);
+      testimonial_item.appendChild(quote_left);
+      testimonial_item.appendChild(testimonial_quote);
+      testimonial_item.appendChild(quote_right);
+
+      document.getElementById("testimonial-content").appendChild(testimonial_item);
+    }
+
+    //educational history
+    function render_educationalhistory(name, year, degree){
+      var educhistory_item = document.createElement("div");
+      var educname = document.createElement("h4");
+      var educyear = document.createElement("h5");
+      var educdegree = document.createElement("ul");
+
+      educhistory_item.className = "educhistory-item";
+      educname.className = "educname";
+      educyear.className = "year";
+      degree.className = "degree";
+
+      educname.innerHTML = name;
+      educyear.innerHTML = year;
+      educdegree.innerHTML = degree;
+        
+      educhistory_item.appendChild(educname);
+      educhistory_item.appendChild(educyear);
+      educhistory_item.appendChild(educdegree);
+
+      document.getElementById("educsection").appendChild(educhistory_item);
+    }
+
+
+    //organizations
+    function render_organization(image, name, period){
+      var organization_item = document.createElement("div");
+      var icon_box = document.createElement("div");
+      var icon = document.createElement("div");
+      var organization_image = document.createElement("img");
+      var organization_name = document.createElement("h4");
+      var organization_period = document.createElement("p");
+
+      organization_item.className = "col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0";
+      icon_box.className = "icon-box iconbox";
+      icon.className = "icon";
+      organization_image.className = "organizations-img";
+      organization_name.className = "organization-name";
+      organization_period.className = "organization-period";
+
+      organization_image.setAttribute("src", image);
+      organization_name.innerHTML = name;
+      organization_period.innerHTML = period;
+    
+      icon.appendChild(organization_image);
+      icon_box.appendChild(icon);
+      icon_box.appendChild(organization_name);
+      icon_box.appendChild(organization_period);
+      organization_item.appendChild(icon_box);
+
+      document.getElementById("organization-content").appendChild(organization_item);
+    }
+
+
+    //works
+    function render_works(iclass, number, name){
+        var work_profile = document.createElement("div"); 
+        var count_box = document.createElement("div"); 
+        var work_icon = document.createElement("i"); 
+        var work_number = document.createElement("span"); 
+        var work_name = document.createElement("p"); 
+
+        work_profile.className = "col-lg-3 col-md-6 mt-5 mt-lg-0"; 
+        count_box.className = "count-box"; 
+        work_number.className = "no"; 
+        work_name.className = "label";
+        
+        work_icon.setAttribute("class", "icofont-simple-smile");
+        work_number.innerHTML = number;
+        work_name.innerHTML = name;
+        
+        count_box.appendChild(work_icon);
+        count_box.appendChild(work_number);
+        count_box.appendChild(work_name);
+        work_profile.appendChild(count_box);
+
+        document.getElementById("work-content").appendChild(work_profile);
+
+    }
+
+    //contact
+    function render_contacts(link, iclass, name, description){
+      var contacts_profile = document.createElement("div");
+      var contacts_link = document.createElement("a");
+      var contacts_icon = document.createElement("i");
+      var contacts_name = document.createElement("h4");
+      var contacts_description = document.createElement("p");
+
+      contacts_profile.className = "contacts-profile";
+      contacts_link.className = "clink";
+      contacts_name.className = "cname";
+      contacts_description.className = "cdes";
+
+      contacts_link.setAttribute("href", link);
+      contacts_icon.setAttribute("class", iclass);
+      contacts_name.innerHTML = name;
+      contacts_description.innerHTML = description;
+
+      contacts_link.appendChild(contacts_icon);
+      contacts_profile.appendChild(contacts_link);
+      contacts_profile.appendChild(contacts_name);
+      contacts_profile.appendChild(contacts_description);
+
+      document.getElementById("contacts-content").appendChild(contacts_profile);
+
+    }
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+      apiKey: "AIzaSyA030K9r3wp48PCuCc7IKnys5lDl6cTZpU",
+      authDomain: "velasco-mp1.firebaseapp.com",
+      databaseURL: "https://velasco-mp1.firebaseio.com",
+      projectId: "velasco-mp1",
+      storageBucket: "velasco-mp1.appspot.com",
+      messagingSenderId: "232700090235",
+      appId: "1:232700090235:web:62cb531d7dd8edd6d38fde",
+      measurementId: "G-9QX4WJHJ6L"
+    };
+    // Initialize Firebase
+    var app = firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+    var db = firebase.firestore(app)
+
+    // introduction
+    db.collection("introduction").get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            console.log(doc.data())
+            console.log(`  ${doc.data().name}`);
+            console.log(`  ${doc.data().intro}`);
+            console.log(`  ${doc.data().quote}`);
+            render_introduction(doc.data().imglink, doc.data().name, doc.data().intro, doc.data().quote);
+        });
+    });
+
+
+
+    // educational history
+    db.collection("educationalhistory").get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            console.log(doc.data())
+            console.log(`  ${doc.data().name}`);
+            console.log(`  ${doc.data().degree}`);
+            console.log(`  ${doc.data().year_started}`);
+            console.log(`  ${doc.data().year_ended}`);
+            render_educationalhistory(doc.data().name, doc.data().year_started + "-" + doc.data().year_ended, doc.data().degree);
+        });
+    });
+
+
+    // organizations
+    db.collection("organization").get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            console.log(doc.data())
+            console.log(`  ${doc.data().name}`);
+            console.log(`  ${doc.data().period}`);
+            render_organization(doc.data().imglink, doc.data().name, doc.data().period);
+        });
+    });
+
+
+    // works
+    db.collection("works").get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            console.log(doc.data())
+            console.log(`  ${doc.data().number}`);
+            console.log(`  ${doc.data().name}`);
+            render_works(doc.data().iclass, doc.data().number, doc.data().name);
+        });
+    });
+
+
+    // contact
+    db.collection("contacts").get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            console.log(doc.data())
+            console.log(`  ${doc.data().name}`);
+            console.log(`  ${doc.data().description}`);
+            render_contacts(doc.data().link, doc.data().iclass, doc.data().name, doc.data().description);
+        });
+    });
+
+  </script>
+
+</head>
+
+<body>
+
+  <!-- ======= Mobile nav toggle button ======= -->
+  <button type="button" class="mobile-nav-toggle d-xl-none"><i class="icofont-navigation-menu"></i></button>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex flex-column justify-content-center">
+
+    <nav class="nav-menu">
+      <ul>
+        <li class="active"><a href="#hero"><i class="bx bx-home"></i> <span>Home</span></a></li>
+        <li><a href="#introduction"><i class="bx bx-user"></i> <span>Introduction</span></a></li>
+        <li><a href="#educhistory"><i class="bx bx-file-blank"></i> <span>Educational History</span></a></li>
+        <li><a href="#organizations"><i class="bx bx-book-content"></i> <span>Organizations</span></a></li>
+        <li><a href="#works"><i class="bx bx-server"></i> <span>Works</span></a></li>
+        <li><a href="#contact"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+      </ul>
+    </nav><!-- .nav-menu -->
+
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex flex-column justify-content-center">
+    <div class="container" data-aos="zoom-in" data-aos-delay="100">
+      <h1>John Velasco</h1>
+      <p>I'm <span class="typed" data-typed-items="a student, a dreamer, the Hot stuff, your Papi."></span></p>
+      
+    </div>
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+  <!-- ======= Introduction Section ======= -->
+  <section id="introduction" class="testimonials section-bg">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-title">
+        <h2>Greetings from your papi</h2>
+      </div>
+
+      <section id = "testimonial-content" data-aos="zoom-in" data-aos-delay="100">
+      </section>
+
+    </div>
+  </section>
+  <!-- End introduction Section -->
+  
+
+  <!-- ======= educhistory Section ======= -->
+  <section id="educhistory" class="educhistory">
+    <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Educational History</h2>
+        </div>
+
+        <div class="row">
+          <section id = "educsection" class="col-lg-6" data-aos="zoom-in" data-aos-delay="100">
+          </section>
+        </div>
+
+    </div>
+  </section>
+  <!-- End educhistory Section -->
+    
+  <!-- ======= organization Section ======= -->
+  <section id="organizations" class="organizations">
+    <div class="container" data-aos="fade-up">
+      <div class="section-title">
+        <h2>Organizations</h2>
+      </div>
+      <section id = "organization-content" class="row" data-aos="zoom-in" data-aos-delay="100">
+      </section>
+    </div>
+  </section>
+  <!-- End organization Section -->
+
+
+  <!-- ======= Works Section ======= -->
+  <section id="works" class="works">
+    <div class="container" data-aos="fade-up">    
+        <div class="section-title">
+            <h2>Works</h2>
+        </div>
+    
+        <section id = "work-content" class="row" data-aos="zoom-in" data-aos-delay="100">
+        </section>
+    
+    </div>
+  </section>
+  <!-- End Works Section -->
+
+  <!-- ======= Contact Section ======= -->
+  <section id="contact" class="contact">
+    <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Contact</h2>
+        </div>
+
+        <div class="row">
+            <section id = "contacts-content" class="info" data-aos="zoom-in" data-aos-delay="100">
+            </section>
+        </div>
+
+    </div>
+  </section>
+  <!-- End Contact Section -->
+
+  </main>
+  <!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <h3>John Velasco</h3>
+      <p>The one and only.<br>
+        Need to modify the page?<a href="edit.html" class="editpage"> Login </a>here!
+      </p>
+      
+      <div class="copyright">
+        &copy; Copyright <strong><span>MyResume</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: [license-url] -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/ -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top"><i class="bx bx-up-arrow-alt"></i></a>
+  <div id="preloader"></div>
+  
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+  <script src="assets/vendor/counterup/counterup.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/venobox/venobox.min.js"></script>
+  <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="assets/vendor/typed.js/typed.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
